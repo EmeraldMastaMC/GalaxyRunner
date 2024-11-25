@@ -1,7 +1,8 @@
 # Galaxy Runner
-An easy to use FTC library developed by the Keller Fusion teams for autonomous and teleop component orchestration. 
-Named after Nana Asteria https://www.youtube.com/@nanaasteria 
+An easy to use FTC library developed by the Keller Fusion teams for autonomous and teleop component orchestration. Named after Nana Asteria https://www.youtube.com/@nanaasteria 
 ![kcalrobotics](https://github.com/user-attachments/assets/12541adb-e12c-409c-84d4-b301a22364e0)
+![nanaasteria](https://github.com/user-attachments/assets/8dbcb499-1f72-4af1-9df4-d2bf8235c117)
+
 
 ## Features
 - Plug and play mecanum support

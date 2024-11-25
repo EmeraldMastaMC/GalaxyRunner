@@ -2,7 +2,7 @@
 An easy to use FTC library developed by the Keller Fusion teams for autonomous and teleop component orchestration. 
 Named after Nana Asteria https://www.youtube.com/@nanaasteria 
 
-# Features
+## Features
 Plug and play mecanum support
 3-wheel odometry builtin (YOU MUST CONFIGURE THIS)
 Basic autonomous movement
@@ -17,6 +17,6 @@ Common utilities are included for developing components
 - Pose2D (x, y and heading)
 - Nanosecond Clock
 
-## warning!!!
+# WARNING!!!
 THIS LIBRARY HAS NOT BEEN TESTED (yet) and probably doesn't work, I have not gotten the opportunity to test it
-yet. 
+yet. I will not give instructions for how to use this library and install it, until I confirm that this project actually works.

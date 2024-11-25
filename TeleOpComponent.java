@@ -17,12 +17,15 @@ public abstract class TeleOpComponent extends Component {
     private boolean runningInitializationThread = false;
 
     public abstract void poll();
+
     public abstract void controls();
+
     public abstract void nullifyControls();
 
     private void requestStop() {
         stopExecution = true;
     }
+
     private boolean stopRequested() {
         return stopExecution;
     }
@@ -31,10 +34,12 @@ public abstract class TeleOpComponent extends Component {
         stopExecution = false;
         controlsEnabled = false;
     }
+
     @Override
     public void doesRequireThreadToInit() {
         requiresThreadToInit = true;
     }
+
     public Gamepad getGamepad() {
         return gamepad;
     }
@@ -42,6 +47,7 @@ public abstract class TeleOpComponent extends Component {
     public void setGamepad(Gamepad gamepad) {
         this.gamepad = gamepad;
     }
+
     public void disableAutoEnableControlsOnStart() {
         automaticallyEnableControls = false;
     }
@@ -49,23 +55,26 @@ public abstract class TeleOpComponent extends Component {
     private void enableControls() {
         controlsEnabled = true;
     }
+
     private void disableControls() {
         controlsEnabled = false;
     }
+
     private void join() {
         try {
             poller.join();
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.error("e: ", e);
         }
     }
+
     @Override
     public void startPolling() {
         double lockID = lock.acquireLock();
         boolean isRunningInitializationThread = runningInitializationThread;
         lock.releaseLock(lockID);
 
-        if(isRunningInitializationThread) {
+        if (isRunningInitializationThread) {
             stopPolling();
 
             lockID = lock.acquireLock();
@@ -82,6 +91,7 @@ public abstract class TeleOpComponent extends Component {
         poller = new Thread(this);
         poller.start();
     }
+
     private void initializationStart() {
         double lockID = lock.acquireLock();
         runningInitializationThread = true;
@@ -92,11 +102,13 @@ public abstract class TeleOpComponent extends Component {
         poller.start();
         init();
     }
+
     @Override
     public void stopPolling() {
         requestStop();
         join();
     }
+
     @Override
     public void initialize() {
         if (requiresThreadToInit) {
@@ -108,7 +120,7 @@ public abstract class TeleOpComponent extends Component {
 
     @Override
     public void run() {
-        while(!stopRequested()) {
+        while (!stopRequested()) {
             if (controlsEnabled) {
                 controls();
             } else {
@@ -121,6 +133,7 @@ public abstract class TeleOpComponent extends Component {
             deinit();
         }
     }
+
     public boolean teleOpEnabled() {
         return controlsEnabled;
     }

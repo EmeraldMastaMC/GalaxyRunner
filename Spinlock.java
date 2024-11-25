@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.GalaxyRunner;
+
 import static org.firstinspires.ftc.teamcode.GalaxyRunner.Utils.sleep;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -8,7 +9,7 @@ public class Spinlock {
     private double owner;
 
     public double acquireLock() {
-        while(!lock.compareAndSet(false, true)) {
+        while (!lock.compareAndSet(false, true)) {
             sleep(10);
         }
         owner = Math.random();

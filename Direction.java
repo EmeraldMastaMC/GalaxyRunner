@@ -11,11 +11,11 @@ public enum Direction {
     private final int multiplier;
 
     Direction(int multiplier) {
-      this.multiplier = multiplier;
+        this.multiplier = multiplier;
     }
 
     public int getMultiplier() {
-      return multiplier;
+        return multiplier;
     }
-    
+
 }

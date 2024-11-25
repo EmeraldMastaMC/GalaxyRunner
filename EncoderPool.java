@@ -11,14 +11,17 @@ public class EncoderPool extends Component {
         encoders.add(e1);
         encoders.add(e2);
     }
+
     public EncoderPool(Encoder e1, Encoder e2, Encoder e3) {
         encoders.add(e1);
         encoders.add(e2);
         encoders.add(e3);
     }
+
     public EncoderPool(Encoder[] encoders) {
         this.encoders.addAll(Arrays.asList(encoders));
     }
+
     public EncoderPool(ArrayList<Encoder> encoders) {
         this.encoders.addAll(encoders);
     }
@@ -29,42 +32,46 @@ public class EncoderPool extends Component {
         encoders.add(e2);
         this.lock = lock;
     }
+
     public EncoderPool(Encoder e1, Encoder e2, Encoder e3, Spinlock lock) {
         encoders.add(e1);
         encoders.add(e2);
         encoders.add(e3);
         this.lock = lock;
     }
+
     public EncoderPool(Encoder[] encoders, Spinlock lock) {
         this.encoders.addAll(Arrays.asList(encoders));
         this.lock = lock;
     }
+
     public EncoderPool(ArrayList<Encoder> encoders, Spinlock lock) {
         this.encoders.addAll(encoders);
         this.lock = lock;
     }
+
     public ArrayList<Double> getEncoderPositions() {
-      double lockID = lock.acquireLock();
-      ArrayList<Double> positions = new ArrayList<>();
-      for(Encoder encoder : encoders) {
-          positions.add((double)encoder.getCurrentPosition());
-      }
-      lock.releaseLock(lockID);
-      return positions;
+        double lockID = lock.acquireLock();
+        ArrayList<Double> positions = new ArrayList<>();
+        for (Encoder encoder : encoders) {
+            positions.add((double) encoder.getCurrentPosition());
+        }
+        lock.releaseLock(lockID);
+        return positions;
     }
 
     public ArrayList<Double> getEncoderVelocities() {
-      double lockID = lock.acquireLock();
-      ArrayList<Double> speeds = new ArrayList<>();
-      for(Encoder encoder : encoders) {
-          speeds.add(encoder.getCorrectedVelocity());
-      }
-      lock.releaseLock(lockID);
-      return speeds;
+        double lockID = lock.acquireLock();
+        ArrayList<Double> speeds = new ArrayList<>();
+        for (Encoder encoder : encoders) {
+            speeds.add(encoder.getCorrectedVelocity());
+        }
+        lock.releaseLock(lockID);
+        return speeds;
     }
 
     public void preStart() {
-        for(Encoder encoder : encoders) {
+        for (Encoder encoder : encoders) {
             encoder.startTimer();
         }
     }
@@ -72,7 +79,7 @@ public class EncoderPool extends Component {
     @Override
     public void poll() {
         double lockID = lock.acquireLock();
-        for(Encoder encoder : encoders) {
+        for (Encoder encoder : encoders) {
             encoder.poll();
         }
         lock.releaseLock(lockID);

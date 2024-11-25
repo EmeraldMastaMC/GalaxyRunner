@@ -22,11 +22,13 @@ public class Mecanum extends TeleOpComponent {
         lateralControl = -getGamepad().left_stick_x;
         yawControl = getGamepad().right_stick_x;
     }
+
     public void nullifyControls() {
         axialControl = 0.0;
         lateralControl = 0.0;
         yawControl = 0.0;
     }
+
     public Mecanum(HardwareMap hardwareMap) {
         // Change these values to suit your code
         leftFront = hardwareMap.get(DcMotorEx.class, LEFT_FRONT_DRIVE_NAME);
@@ -42,6 +44,7 @@ public class Mecanum extends TeleOpComponent {
         rightRear.setDirection(DcMotorEx.Direction.FORWARD);
         disableAutoEnableControlsOnStart();
     }
+
     public Mecanum(HardwareMap hardwareMap, Gamepad gamepad) {
         // Change these values to suit your code
         leftFront = hardwareMap.get(DcMotorEx.class, LEFT_FRONT_DRIVE_NAME);
@@ -90,10 +93,10 @@ public class Mecanum extends TeleOpComponent {
         double adjustedLateral = lateral * LATERAL_DIRECTION.getMultiplier();
         double adjustedYaw = yaw * YAW_DIRECTION.getMultiplier();
 
-        double leftFrontPower  = (adjustedAxial + adjustedLateral + adjustedYaw) * POWER_MULTIPLIER;
+        double leftFrontPower = (adjustedAxial + adjustedLateral + adjustedYaw) * POWER_MULTIPLIER;
         double rightFrontPower = (adjustedAxial - adjustedLateral - adjustedYaw) * POWER_MULTIPLIER;
-        double leftRearPower   = (adjustedAxial - adjustedLateral + adjustedYaw) * POWER_MULTIPLIER;
-        double rightRearPower  = (adjustedAxial + adjustedLateral - adjustedYaw) * POWER_MULTIPLIER;
+        double leftRearPower = (adjustedAxial - adjustedLateral + adjustedYaw) * POWER_MULTIPLIER;
+        double rightRearPower = (adjustedAxial + adjustedLateral - adjustedYaw) * POWER_MULTIPLIER;
 
         // Normalize the values so no wheel power exceeds 100%
         // This ensures that the robot maintains the desired motion.
@@ -113,11 +116,11 @@ public class Mecanum extends TeleOpComponent {
 
     public void setTarget(double axial, double lateral, double yaw) {
 
-      double lockID = lock.acquireLock();
-      axialTarget = axial;
-      lateralTarget = lateral;
-      yawTarget = yaw;
-      lock.releaseLock(lockID);
+        double lockID = lock.acquireLock();
+        axialTarget = axial;
+        lateralTarget = lateral;
+        yawTarget = yaw;
+        lock.releaseLock(lockID);
     }
 
 

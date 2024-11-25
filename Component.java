@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // WARNING!!! User must make sure that the poller is thread safe, safety is not guaranteed.
-public abstract class Component implements Runnable,Pollable {
+public abstract class Component implements Runnable, Pollable {
     private static final Logger log = LoggerFactory.getLogger(Component.class);
     private boolean stopExecution = false;
     private Thread poller;
@@ -14,13 +14,14 @@ public abstract class Component implements Runnable,Pollable {
 
     @Override
     public abstract void poll();
+
     @Override
     public void startPolling() {
         double lockID = lock.acquireLock();
         boolean isRunningInitializationThread = runningInitializationThread;
         lock.releaseLock(lockID);
 
-        if(isRunningInitializationThread) {
+        if (isRunningInitializationThread) {
             stopPolling();
 
             lockID = lock.acquireLock();
@@ -30,6 +31,7 @@ public abstract class Component implements Runnable,Pollable {
         poller = new Thread(this);
         poller.start();
     }
+
     private void initializationStart() {
         double lockID = lock.acquireLock();
         runningInitializationThread = true;
@@ -38,30 +40,37 @@ public abstract class Component implements Runnable,Pollable {
         poller.start();
         init();
     }
+
     private void join() {
         try {
             poller.join();
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.error("Error: ", e);
         }
     }
+
     public void doesRequireThreadToInit() {
         requiresThreadToInit = true;
     }
+
     @Override
     public void stopPolling() {
         requestStop();
         join();
     }
+
     private boolean stopRequested() {
         return stopExecution;
     }
+
     private void requestStop() {
         stopExecution = true;
     }
+
     private void reset() {
         stopExecution = false;
     }
+
     @Override
     public void initialize() {
         if (requiresThreadToInit) {
@@ -74,12 +83,14 @@ public abstract class Component implements Runnable,Pollable {
     @Override
     public void init() {
     }
+
     @Override
     public void deinit() {
     }
+
     @Override
     public void run() {
-        while(!stopRequested()) {
+        while (!stopRequested()) {
             poll();
         }
         reset();
@@ -87,9 +98,11 @@ public abstract class Component implements Runnable,Pollable {
             deinit();
         }
     }
+
     @Override
     public void preStart() {
     }
+
     @Override
     public void start() {
         preStart();

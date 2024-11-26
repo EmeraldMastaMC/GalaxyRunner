@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.team26923.GalaxyRunner;
+package org.firstinspires.ftc.team26923.GalaxyRunner.Utils;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-public class Utils {
+public class Common {
     public static void sleep(long millis) {
         try {
             Thread.sleep(millis);

@@ -1,4 +1,7 @@
-package org.firstinspires.ftc.team26923.GalaxyRunner;
+package org.firstinspires.ftc.team26923.GalaxyRunner.Odometry;
+
+import org.firstinspires.ftc.team26923.GalaxyRunner.Component;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Spinlock;
 
 import java.util.ArrayList;
 import java.util.Arrays;

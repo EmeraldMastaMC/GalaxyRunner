@@ -1,9 +1,15 @@
-package org.firstinspires.ftc.team26923.GalaxyRunner;
+package org.firstinspires.ftc.team26923.GalaxyRunner.Odometry;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class Odometry extends Component {
+import org.firstinspires.ftc.team26923.GalaxyRunner.Component;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Direction;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.NanoClock;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Pose2D;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Spinlock;
+
+public class ThreeWheelOdometry extends Component {
     /* CHANGE THESE VALUES FOR YOUR ROBOT */
     private final double TICKS_PER_REVOLUTION = 8192.0;
     private final double WHEEL_RADIUS = 0.94488189 * 25.4;
@@ -41,16 +47,16 @@ public class Odometry extends Component {
         return encoders;
     }
 
-    public Odometry(HardwareMap hardwareMap) {
+    public ThreeWheelOdometry(HardwareMap hardwareMap) {
         setEncoders(hardwareMap);
     }
 
-    public Odometry(HardwareMap hardwareMap, Spinlock poseCalculationLock) {
+    public ThreeWheelOdometry(HardwareMap hardwareMap, Spinlock poseCalculationLock) {
         setEncoders(hardwareMap);
         this.poseCalculationLock = poseCalculationLock;
     }
 
-    public Odometry(HardwareMap hardwareMap, Pose2D initialPose) {
+    public ThreeWheelOdometry(HardwareMap hardwareMap, Pose2D initialPose) {
         setEncoders(hardwareMap);
         this.xPosition = initialPose.getX();
         this.yPosition = initialPose.getY();
@@ -58,7 +64,7 @@ public class Odometry extends Component {
         this.prevHeading = this.heading;
     }
 
-    public Odometry(HardwareMap hardwareMap, Pose2D initialPose, Spinlock poseCalculationLock) {
+    public ThreeWheelOdometry(HardwareMap hardwareMap, Pose2D initialPose, Spinlock poseCalculationLock) {
         setEncoders(hardwareMap);
         this.poseCalculationLock = poseCalculationLock;
         this.xPosition = initialPose.getX();

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.team26923.GalaxyRunner;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Spinlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

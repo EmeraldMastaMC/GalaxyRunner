@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team26923.GalaxyRunner;
+package org.firstinspires.ftc.team26923.GalaxyRunner.Utils;
 
 public enum Direction {
     FORWARD(1),

@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.team26923.GalaxyRunner;
+package org.firstinspires.ftc.team26923.GalaxyRunner.Utils;
 
-import static org.firstinspires.ftc.team26923.GalaxyRunner.Utils.sleep;
+import static org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Common.sleep;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

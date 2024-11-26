@@ -4,6 +4,13 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Drivetrain.Mecanum;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Odometry.EncoderPool;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Odometry.ThreeWheelOdometry;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.NanoClock;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.PID;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Pose2D;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Spinlock;
 
 import java.util.ArrayList;
 
@@ -20,7 +27,7 @@ public class Galaxy extends Component {
     private static final boolean ODOMETRY_ENABLED = true;
     private final boolean showTelemetry;
     private final Mecanum mecanum;
-    private final Odometry odometry;
+    private final ThreeWheelOdometry odometry;
     private ArrayList<Pollable> components;
     private final PID lateralPID = new PID(0.01, 0.0, 0.0);
     private final PID axialPID = new PID(0.01, 0.0, 0.0);
@@ -35,20 +42,20 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap) {
         mecanum = new Mecanum(hardwareMap);
-        odometry = new Odometry(hardwareMap, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, poseCalculationLock);
         this.showTelemetry = false;
     }
 
     public Galaxy(HardwareMap hardwareMap, ArrayList<Pollable> components) {
         mecanum = new Mecanum(hardwareMap);
-        odometry = new Odometry(hardwareMap, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, poseCalculationLock);
         this.showTelemetry = false;
         this.components = components;
     }
 
     public Galaxy(HardwareMap hardwareMap, Pose2D initialPose) {
         mecanum = new Mecanum(hardwareMap);
-        odometry = new Odometry(hardwareMap, initialPose, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, initialPose, poseCalculationLock);
         this.target.setX(initialPose.getX());
         this.target.setY(initialPose.getY());
         this.target.setHeading(initialPose.getHeading());
@@ -57,7 +64,7 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap, Pose2D initialPose, ArrayList<Pollable> components) {
         mecanum = new Mecanum(hardwareMap);
-        odometry = new Odometry(hardwareMap, initialPose, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, initialPose, poseCalculationLock);
         this.target.setX(initialPose.getX());
         this.target.setY(initialPose.getY());
         this.target.setHeading(initialPose.getHeading());
@@ -67,14 +74,14 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap, Telemetry telemetry) {
         mecanum = new Mecanum(hardwareMap);
-        odometry = new Odometry(hardwareMap, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, poseCalculationLock);
         this.showTelemetry = true;
         this.telemetry = telemetry;
     }
 
     public Galaxy(HardwareMap hardwareMap, Telemetry telemetry, ArrayList<Pollable> components) {
         mecanum = new Mecanum(hardwareMap);
-        odometry = new Odometry(hardwareMap, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, poseCalculationLock);
         this.showTelemetry = true;
         this.telemetry = telemetry;
         this.components = components;
@@ -82,7 +89,7 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap, Pose2D initialPose, Telemetry telemetry) {
         mecanum = new Mecanum(hardwareMap);
-        odometry = new Odometry(hardwareMap, initialPose, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, initialPose, poseCalculationLock);
         this.target.setX(initialPose.getX());
         this.target.setY(initialPose.getY());
         this.target.setHeading(initialPose.getHeading());
@@ -92,7 +99,7 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap, Pose2D initialPose, Telemetry telemetry, ArrayList<Pollable> components) {
         mecanum = new Mecanum(hardwareMap);
-        odometry = new Odometry(hardwareMap, initialPose, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, initialPose, poseCalculationLock);
         this.target.setX(initialPose.getX());
         this.target.setY(initialPose.getY());
         this.target.setHeading(initialPose.getHeading());
@@ -103,14 +110,14 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap, Gamepad gamepad) {
         mecanum = new Mecanum(hardwareMap, gamepad);
-        odometry = new Odometry(hardwareMap, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, poseCalculationLock);
         this.showTelemetry = false;
         disableMecanumAuton();
     }
 
     public Galaxy(HardwareMap hardwareMap, Gamepad gamepad, ArrayList<Pollable> components) {
         mecanum = new Mecanum(hardwareMap, gamepad);
-        odometry = new Odometry(hardwareMap, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, poseCalculationLock);
         this.showTelemetry = false;
         this.components = components;
         disableMecanumAuton();
@@ -118,7 +125,7 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap, Gamepad gamepad, Pose2D initialPose) {
         mecanum = new Mecanum(hardwareMap, gamepad);
-        odometry = new Odometry(hardwareMap, initialPose, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, initialPose, poseCalculationLock);
         this.target.setX(initialPose.getX());
         this.target.setY(initialPose.getY());
         this.target.setHeading(initialPose.getHeading());
@@ -128,7 +135,7 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap, Gamepad gamepad, Pose2D initialPose, ArrayList<Pollable> components) {
         mecanum = new Mecanum(hardwareMap, gamepad);
-        odometry = new Odometry(hardwareMap, initialPose, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, initialPose, poseCalculationLock);
         this.target.setX(initialPose.getX());
         this.target.setY(initialPose.getY());
         this.target.setHeading(initialPose.getHeading());
@@ -139,7 +146,7 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap, Gamepad gamepad, Telemetry telemetry) {
         mecanum = new Mecanum(hardwareMap, gamepad);
-        odometry = new Odometry(hardwareMap, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, poseCalculationLock);
         this.showTelemetry = true;
         this.telemetry = telemetry;
         disableMecanumAuton();
@@ -147,7 +154,7 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap, Gamepad gamepad, Telemetry telemetry, ArrayList<Pollable> components) {
         mecanum = new Mecanum(hardwareMap, gamepad);
-        odometry = new Odometry(hardwareMap, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, poseCalculationLock);
         this.showTelemetry = true;
         this.telemetry = telemetry;
         this.components = components;
@@ -156,7 +163,7 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap, Gamepad gamepad, Pose2D initialPose, Telemetry telemetry) {
         mecanum = new Mecanum(hardwareMap, gamepad);
-        odometry = new Odometry(hardwareMap, initialPose, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, initialPose, poseCalculationLock);
         this.target.setX(initialPose.getX());
         this.target.setY(initialPose.getY());
         this.target.setHeading(initialPose.getHeading());
@@ -167,7 +174,7 @@ public class Galaxy extends Component {
 
     public Galaxy(HardwareMap hardwareMap, Gamepad gamepad, Pose2D initialPose, Telemetry telemetry, ArrayList<Pollable> components) {
         mecanum = new Mecanum(hardwareMap, gamepad);
-        odometry = new Odometry(hardwareMap, initialPose, poseCalculationLock);
+        odometry = new ThreeWheelOdometry(hardwareMap, initialPose, poseCalculationLock);
         this.target.setX(initialPose.getX());
         this.target.setY(initialPose.getY());
         this.target.setHeading(initialPose.getHeading());

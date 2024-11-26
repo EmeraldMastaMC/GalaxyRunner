@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.team26923.GalaxyRunner;
 
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Spinlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 // WARNING!!! User must make sure that the poller is thread safe, safety is not guaranteed.
 public abstract class Component implements Runnable, Pollable {
     private static final Logger log = LoggerFactory.getLogger(Component.class);

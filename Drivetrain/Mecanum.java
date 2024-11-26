@@ -1,8 +1,10 @@
-package org.firstinspires.ftc.team26923.GalaxyRunner;
+package org.firstinspires.ftc.team26923.GalaxyRunner.Drivetrain;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.team26923.GalaxyRunner.TeleOpComponent;
 
 public class Mecanum extends TeleOpComponent {
     private static final double POWER_MULTIPLIER = 1.0;

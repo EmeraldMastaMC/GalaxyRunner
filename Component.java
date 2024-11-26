@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.GalaxyRunner;
+package org.firstinspires.ftc.team26923.GalaxyRunner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

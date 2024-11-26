@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.GalaxyRunner;
+package org.firstinspires.ftc.team26923.GalaxyRunner;
 
 public class NanoClock {
     private long startTime;

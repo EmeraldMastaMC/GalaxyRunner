@@ -25,6 +25,7 @@ public class Galaxy extends Component {
     // Below what angular speed you want to be traveling before the moveTo function returns
     private static final double ROTATIONAL_SPEED_TOLERANCE = ((Math.PI * 2) / 360) * 3.0; // Three degrees/s
     private static final boolean ODOMETRY_ENABLED = true;
+
     private final boolean showTelemetry;
     private final Mecanum mecanum;
     private final ThreeWheelOdometry odometry;
@@ -268,7 +269,7 @@ public class Galaxy extends Component {
     }
 
     @Override
-    public void deinit() {
+    public void preStop() {
         mecanum.stop();
         if (ODOMETRY_ENABLED) {
             odometry.stop();

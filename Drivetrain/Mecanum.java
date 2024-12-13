@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.team26923.GalaxyRunner.Drivetrain;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.team26923.GalaxyRunner.TeleOpComponent;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Direction;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Spinlock;
 
 public class Mecanum extends TeleOpComponent {
     private static final double POWER_MULTIPLIER = 1.0;
@@ -50,15 +53,19 @@ public class Mecanum extends TeleOpComponent {
     public Mecanum(HardwareMap hardwareMap, Gamepad gamepad) {
         // Change these values to suit your code
         leftFront = hardwareMap.get(DcMotorEx.class, LEFT_FRONT_DRIVE_NAME);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setDirection(DcMotorEx.Direction.REVERSE);
 
         leftRear = hardwareMap.get(DcMotorEx.class, LEFT_REAR_DRIVE_NAME);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftRear.setDirection(DcMotorEx.Direction.REVERSE);
 
         rightFront = hardwareMap.get(DcMotorEx.class, RIGHT_FRONT_DRIVE_NAME);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setDirection(DcMotorEx.Direction.FORWARD);
 
         rightRear = hardwareMap.get(DcMotorEx.class, RIGHT_REAR_DRIVE_NAME);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setDirection(DcMotorEx.Direction.FORWARD);
         setGamepad(gamepad);
     }
@@ -75,10 +82,6 @@ public class Mecanum extends TeleOpComponent {
 
 
     private void power(double lfp, double lrp, double rfp, double rrp) {
-        assert (0 <= lfp) && (lfp <= 1.0) : "lfp should be between 0.0 and 1.0";
-        assert (0 <= lrp) && (lrp <= 1.0) : "lrp should be between 0.0 and 1.0";
-        assert (0 <= rfp) && (rfp <= 1.0) : "rfp should be between 0.0 and 1.0";
-        assert (0 <= rrp) && (rrp <= 1.0) : "rrp should be between 0.0 and 1.0";
         leftFront.setPower(lfp);
         leftRear.setPower(lrp);
         rightFront.setPower(rfp);
@@ -86,10 +89,6 @@ public class Mecanum extends TeleOpComponent {
     }
 
     private void power(double axial, double lateral, double yaw) {
-        assert (0 <= axial) && (axial <= 1.0) : "axial should be between 0.0 and 1.0";
-        assert (0 <= lateral) && (lateral <= 1.0) : "axial should be between 0.0 and 1.0";
-        assert (0 <= yaw) && (yaw <= 1.0) : "axial should be between 0.0 and 1.0";
-
         double max;
         double adjustedAxial = axial * AXIAL_DIRECTION.getMultiplier();
         double adjustedLateral = lateral * LATERAL_DIRECTION.getMultiplier();

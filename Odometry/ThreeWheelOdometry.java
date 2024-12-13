@@ -26,6 +26,7 @@ public class ThreeWheelOdometry extends Component {
         leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "left_front_drive"));
         rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "right_front_drive"));
         frontEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "right_back_drive"));
+        encoders = new EncoderPool(leftEncoder, rightEncoder, frontEncoder, encoderPollLock);
     }
 
     private final NanoClock timer = new NanoClock();
@@ -38,7 +39,7 @@ public class ThreeWheelOdometry extends Component {
     private double heading = 0.0; // Radians
     private double prevHeading = heading;
     private Encoder leftEncoder, rightEncoder, frontEncoder;
-    private final EncoderPool encoders = new EncoderPool(leftEncoder, rightEncoder, frontEncoder, encoderPollLock);
+    private EncoderPool encoders;
 
     // CHANGE THESE VALUES
 

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.team26923.GalaxyRunner.Drivetrain;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -37,16 +38,12 @@ public class Mecanum extends TeleOpComponent {
     public Mecanum(HardwareMap hardwareMap) {
         // Change these values to suit your code
         leftFront = hardwareMap.get(DcMotorEx.class, LEFT_FRONT_DRIVE_NAME);
-        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
 
         leftRear = hardwareMap.get(DcMotorEx.class, LEFT_REAR_DRIVE_NAME);
-        leftRear.setDirection(DcMotorEx.Direction.REVERSE);
 
         rightFront = hardwareMap.get(DcMotorEx.class, RIGHT_FRONT_DRIVE_NAME);
-        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
 
         rightRear = hardwareMap.get(DcMotorEx.class, RIGHT_REAR_DRIVE_NAME);
-        rightRear.setDirection(DcMotorEx.Direction.FORWARD);
         disableAutoEnableControlsOnStart();
     }
 
@@ -54,19 +51,17 @@ public class Mecanum extends TeleOpComponent {
         // Change these values to suit your code
         leftFront = hardwareMap.get(DcMotorEx.class, LEFT_FRONT_DRIVE_NAME);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
 
         leftRear = hardwareMap.get(DcMotorEx.class, LEFT_REAR_DRIVE_NAME);
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftRear.setDirection(DcMotorEx.Direction.REVERSE);
 
         rightFront = hardwareMap.get(DcMotorEx.class, RIGHT_FRONT_DRIVE_NAME);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightRear = hardwareMap.get(DcMotorEx.class, RIGHT_REAR_DRIVE_NAME);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightRear.setDirection(DcMotorEx.Direction.FORWARD);
+        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
         setGamepad(gamepad);
     }
 

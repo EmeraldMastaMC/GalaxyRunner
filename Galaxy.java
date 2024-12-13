@@ -24,7 +24,7 @@ public class Galaxy extends Component {
     private static final double TARGET_HEADING_TOLERANCE = ((Math.PI * 2) / 360) * (1.0 / 2.0); // Half a degree
     // Below what angular speed you want to be traveling before the moveTo function returns
     private static final double ROTATIONAL_SPEED_TOLERANCE = ((Math.PI * 2) / 360) * 3.0; // Three degrees/s
-    private static final boolean ODOMETRY_ENABLED = true;
+    private static final boolean ODOMETRY_ENABLED = false;
 
     private final boolean showTelemetry;
     private final Mecanum mecanum;

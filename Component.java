@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.team26923.GalaxyRunner;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
 import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Spinlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 // WARNING!!! User must make sure that the poller is thread safe, safety is not guaranteed.
 public abstract class Component implements Runnable, Pollable {
     private static final Logger log = LoggerFactory.getLogger(Component.class);
+    private LinearOpMode opMode;
     private boolean stopExecution = false;
     private Thread poller;
     private final Spinlock lock = new Spinlock();
@@ -88,9 +91,13 @@ public abstract class Component implements Runnable, Pollable {
     public void deinit() {
     }
 
+    public void setOpmode(LinearOpMode opMode) {
+        this.opMode = opMode;
+    }
+
     @Override
     public void run() {
-        while (!stopRequested()) {
+        while (!stopRequested() && !opMode.isStopRequested()) {
             poll();
         }
         reset();

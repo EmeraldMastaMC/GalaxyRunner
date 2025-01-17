@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.team26923.GalaxyRunner.Odometry;
-
+// UNTESTED
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.team26923.GalaxyRunner.Component;
 import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Direction;
 import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.NanoClock;
@@ -48,25 +50,29 @@ public class ThreeWheelOdometry extends Component {
         return encoders;
     }
 
-    public ThreeWheelOdometry(HardwareMap hardwareMap) {
+    public ThreeWheelOdometry(HardwareMap hardwareMap, LinearOpMode opMode) {
         setEncoders(hardwareMap);
+        setOpmode(opMode);
     }
 
-    public ThreeWheelOdometry(HardwareMap hardwareMap, Spinlock poseCalculationLock) {
+    public ThreeWheelOdometry(HardwareMap hardwareMap, Spinlock poseCalculationLock, LinearOpMode opMode) {
         setEncoders(hardwareMap);
+        setOpmode(opMode);
         this.poseCalculationLock = poseCalculationLock;
     }
 
-    public ThreeWheelOdometry(HardwareMap hardwareMap, Pose2D initialPose) {
+    public ThreeWheelOdometry(HardwareMap hardwareMap, Pose2D initialPose, LinearOpMode opMode) {
         setEncoders(hardwareMap);
+        setOpmode(opMode);
         this.xPosition = initialPose.getX();
         this.yPosition = initialPose.getY();
         this.heading = initialPose.getHeading();
         this.prevHeading = this.heading;
     }
 
-    public ThreeWheelOdometry(HardwareMap hardwareMap, Pose2D initialPose, Spinlock poseCalculationLock) {
+    public ThreeWheelOdometry(HardwareMap hardwareMap, Pose2D initialPose, Spinlock poseCalculationLock, LinearOpMode opMode) {
         setEncoders(hardwareMap);
+        setOpmode(opMode);
         this.poseCalculationLock = poseCalculationLock;
         this.xPosition = initialPose.getX();
         this.yPosition = initialPose.getY();

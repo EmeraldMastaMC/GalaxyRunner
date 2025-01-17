@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.team26923.GalaxyRunner;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Spinlock;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class TeleOpComponent extends Component {
     private static final Logger log = LoggerFactory.getLogger(TeleOpComponent.class);
+    private LinearOpMode opMode;
     private Gamepad gamepad;
     private boolean stopExecution = false;
     private boolean controlsEnabled = false;
@@ -25,6 +27,10 @@ public abstract class TeleOpComponent extends Component {
 
     private void requestStop() {
         stopExecution = true;
+    }
+
+    public void setOpmode(LinearOpMode opMode) {
+        this.opMode = opMode;
     }
 
     private boolean stopRequested() {
@@ -121,7 +127,7 @@ public abstract class TeleOpComponent extends Component {
 
     @Override
     public void run() {
-        while (!stopRequested()) {
+        while (!stopRequested() && !opMode.isStopRequested()) {
             if (controlsEnabled) {
                 controls();
             } else {

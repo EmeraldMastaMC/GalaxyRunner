@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.team26923.GalaxyRunner.Drivetrain;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -35,34 +36,42 @@ public class Mecanum extends TeleOpComponent {
         yawControl = 0.0;
     }
 
-    public Mecanum(HardwareMap hardwareMap) {
-        // Change these values to suit your code
-        leftFront = hardwareMap.get(DcMotorEx.class, LEFT_FRONT_DRIVE_NAME);
-
-        leftRear = hardwareMap.get(DcMotorEx.class, LEFT_REAR_DRIVE_NAME);
-
-        rightFront = hardwareMap.get(DcMotorEx.class, RIGHT_FRONT_DRIVE_NAME);
-
-        rightRear = hardwareMap.get(DcMotorEx.class, RIGHT_REAR_DRIVE_NAME);
-        disableAutoEnableControlsOnStart();
-    }
-
-    public Mecanum(HardwareMap hardwareMap, Gamepad gamepad) {
+    public Mecanum(HardwareMap hardwareMap, LinearOpMode opMode) {
         // Change these values to suit your code
         leftFront = hardwareMap.get(DcMotorEx.class, LEFT_FRONT_DRIVE_NAME);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftRear = hardwareMap.get(DcMotorEx.class, LEFT_REAR_DRIVE_NAME);
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightFront = hardwareMap.get(DcMotorEx.class, RIGHT_FRONT_DRIVE_NAME);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightRear = hardwareMap.get(DcMotorEx.class, RIGHT_REAR_DRIVE_NAME);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        disableAutoEnableControlsOnStart();
+        setOpmode(opMode);
+    }
+
+    public Mecanum(HardwareMap hardwareMap, Gamepad gamepad, LinearOpMode opMode) {
+        // Change these values to suit your code
+        leftFront = hardwareMap.get(DcMotorEx.class, LEFT_FRONT_DRIVE_NAME);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        leftRear = hardwareMap.get(DcMotorEx.class, LEFT_REAR_DRIVE_NAME);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        rightFront = hardwareMap.get(DcMotorEx.class, RIGHT_FRONT_DRIVE_NAME);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        rightRear = hardwareMap.get(DcMotorEx.class, RIGHT_REAR_DRIVE_NAME);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         setGamepad(gamepad);
+        setOpmode(opMode);
     }
 
     private final DcMotorEx leftFront;
